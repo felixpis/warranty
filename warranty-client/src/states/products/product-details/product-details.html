@@ -1,0 +1,45 @@
+<div>
+    <div class="form-group">
+        <label>Product name</label>
+        <input type="text" class="form-control" ng-model="$ctrl.productToEdit.name"/>
+    </div>
+    <div class="form-group">
+        <label>Comments</label>
+        <textarea class="form-control" rows="4" ng-model="$ctrl.productToEdit.comments"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Purchase date</label>
+        <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="dd MMMM yyyy" ng-model="$ctrl.productToEdit.purchaseDate"
+                   is-open="opened" ng-required="true" close-text="Close"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="opened = true"><i
+                    class="fa fa-calendar"></i></button>
+          </span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Period</label>
+        <input type="number" class="form-control" ng-model="$ctrl.productToEdit.period"/> years
+    </div>
+    <div class="form-group">
+        Upload pictures
+        <div flow-init="{target: ''}"
+             flow-name="$ctrl.flowObj"
+             flow-files-submitted="$flow.upload()">
+            <input type="file" flow-btn/>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-success" ng-disabled="!$ctrl.productToEdit"
+                ng-click="$ctrl.save({product: $ctrl.productToEdit})">
+            <i class="fa fa-save"></i>
+            Save
+        </button>
+        <button type="button" class="btn btn-danger pull-right" ng-disabled="!$ctrl.productToEdit"
+                ng-click="$ctrl.removeProduct()">
+            <i class="fa fa-remove"></i>
+            Remove product
+        </button>
+    </div>
+</div>

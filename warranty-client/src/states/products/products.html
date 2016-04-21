@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="page-header">
+        <h1>Warranty</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <products-list list="products.productsList"
+                           selected="products.selectedProduct"
+                           select="products.selectProduct(product)"
+                           add="products.addProduct(name)"></products-list>
+        </div>
+        <div class="col-md-8">
+            <product-details
+                    selected="products.selectedProduct"
+                    remove="products.deleteProduct()"
+                    save="products.updateProduct(product)"></product-details>
+        </div>
+    </div>
+</div>

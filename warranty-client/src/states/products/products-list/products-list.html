@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <button type="button" class="btn btn-success" ng-click="$ctrl.addProduct()">
+                <i class="fa fa-plus"></i>
+                Add new product</button>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            <a href="#" class="list-group-item"
+               ng-repeat="product in $ctrl.list"
+               ng-click="$ctrl.select({product: product})"
+               ng-class="{active: product._id == $ctrl.selected._id}">
+                {{product.name}}
+            </a>
+        </div>
+    </div>
+</div>
+
+

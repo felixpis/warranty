@@ -1,0 +1,45 @@
+/**
+ * Created by felixp on 10/01/2016.
+ */
+
+(function (products) {
+
+    var database = require('./database');
+
+    products.get = function (next) {
+        database.getDB(function(err, db){
+            db.products.find().toArray(function(err, products){
+                next(err, products);
+            })
+        })
+    };
+
+    products.add = function(product, next) {
+        database.getDB(function(err, db){
+            db.products.insertOne(product, function(err, r){
+                product._id = r.insertedId;
+                next(err, product);
+            })
+        })
+    };
+
+    products.update = function(product, next) {
+        database.getDB(function(err, db){
+            var key = new db.objectId(product._id);
+            delete product._id;
+            db.products.updateOne({_id: key}, product, function(err, r){
+                next(err, r.nModified);
+            })
+        })
+    };
+
+    products.remove = function(productId, next) {
+        database.getDB(function(err, db){
+            db.products.removeOne({_id: new db.objectId(productId)}, function(err, r){
+                next(err, r.deletedCount);
+            })
+        })
+    };
+
+
+})(module.exports);
