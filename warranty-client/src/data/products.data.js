@@ -35,4 +35,8 @@ export class ProductsDataProvider{
                 return response.data > 0;
             });
     }
+
+    get uploadUrl(){
+        return `${this.url}image/upload/`;
+    }
 }

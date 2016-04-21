@@ -43,4 +43,8 @@ export class ProductsModel{
                 }
             });
     }
+    
+    get uploadUrl(){
+        return this.productsData.uploadUrl;
+    }
 }

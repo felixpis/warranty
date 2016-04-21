@@ -10,6 +10,7 @@ export class ProductsController{
         this.productToEdit = {};
 
         this.productsList = this.productsModel.products;
+        this.uploadUrl =productsModel.uploadUrl;
         this.loadProducts();
     }
 

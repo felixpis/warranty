@@ -4,6 +4,7 @@
 
 import angular from 'angular';
 import 'angular-ui-bootstrap';
+import 'ng-flow/dist/ng-flow-standalone';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
@@ -20,7 +21,7 @@ import servicesModule from 'services/services.module';
 
 let dependencies = [
     'ui.bootstrap',
-    //'flow',
+    'flow',
 
     statesModule.name,
     modelsModule.name,
