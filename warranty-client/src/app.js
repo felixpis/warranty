@@ -4,7 +4,7 @@
 
 import angular from 'angular';
 import 'angular-ui-bootstrap';
-import 'ng-flow/dist/ng-flow-standalone';
+import 'imports?module=>null,define=>null!ng-flow/dist/ng-flow-standalone';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';

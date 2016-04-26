@@ -6,3 +6,29 @@
     width: 100px;
     display: inline-block;
 }
+
+.product-details .images{
+
+}
+
+.product-details .images > div {
+    width: 160px;
+    height: 160px;
+    display: inline-block;
+    margin: 10px 10px 10px 0;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.product-details .images > div:hover{
+    border: solid 1px lightgray;
+}
+
+.product-details .images > div > img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    display: inline-block;
+}
+

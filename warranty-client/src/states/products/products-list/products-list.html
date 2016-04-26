@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default products-list">
     <div class="panel-heading">
         <h3 class="panel-title">
             <button type="button" class="btn btn-success" ng-click="$ctrl.addProduct()">
@@ -13,6 +13,7 @@
                ng-click="$ctrl.select({product: product})"
                ng-class="{active: product._id == $ctrl.selected._id}">
                 {{product.name}}
+                <i class="fa fa-exclamation pull-right" ng-class="$ctrl.expirationClass(product)"></i>
             </a>
         </div>
     </div>

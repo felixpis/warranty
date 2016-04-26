@@ -39,4 +39,8 @@ export class ProductsDataProvider{
     get uploadUrl(){
         return `${this.url}image/upload/`;
     }
+
+    get imageUrl(){
+        return `${this.url}image/load/`;
+    }
 }

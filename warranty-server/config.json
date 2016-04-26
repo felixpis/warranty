@@ -1,5 +1,5 @@
 {
   "database": {
-    "url": "mongodb://localhost:27017/warranty"
+    "url": "mongodb://127.0.0.1:27017/warranty"
   }
 }

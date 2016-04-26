@@ -11,6 +11,8 @@ export class ProductsController{
 
         this.productsList = this.productsModel.products;
         this.uploadUrl =productsModel.uploadUrl;
+        this.imageUrl = productsModel.imageUrl;
+        
         this.loadProducts();
     }
 

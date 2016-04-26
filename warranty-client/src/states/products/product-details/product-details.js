@@ -10,7 +10,7 @@ class ProductDetailsController {
         this.modalsService = modalsService;
         this._selected = null;
         this.productToEdit = {};
-        //this.flowObj = {};
+        this.flowObj = {};
     }
 
     get selected(){
@@ -22,10 +22,11 @@ class ProductDetailsController {
             this._selected = value;
             this.productToEdit = angular.copy(value);
             this.productToEdit.purchaseDate = new Date(this.productToEdit.purchaseDate);
-            /*if (this.flowObj) {
-                this.flowObj.target = `${this.uploadUrl}${value._id}`;
-                console.log(this.flowObj.target);
-            }*/
+            if (this.flowObj) {
+                this.flowObj.flow.opts.target = `${this.uploadUrl}${value._id}`;
+                console.log(this.flowObj.flow.opts.target);
+
+            }
         }
     }
 
@@ -36,6 +37,26 @@ class ProductDetailsController {
                 this.productToEdit = {};
             });
     };
+
+    openFile(fileName){
+        window.open(this.getProductImage(fileName));
+    }
+    
+    getProductImage(fileName){
+        return `${this.imageUrl}${this.productToEdit._id}/${fileName}`
+    }
+
+    uploadCompleted(message){
+        let result = JSON.parse(message);
+        if(!this._selected.images){
+            this._selected.images = [];
+        }
+        if(!this.productToEdit.images) {
+            this.productToEdit.images = [];
+        }
+        this._selected.images.push(result.fileName);
+        this.productToEdit.images.push(result.fileName);
+    }
 }
 
 export var ProductDetailsComponent = {
@@ -43,7 +64,8 @@ export var ProductDetailsComponent = {
         selected: '=',
         remove: '&',
         save: '&',
-        uploadUrl: '='
+        uploadUrl: '=',
+        imageUrl: '='
     },
     controller: ProductDetailsController,
     template: detailsTemplate

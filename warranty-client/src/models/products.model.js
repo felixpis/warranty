@@ -11,8 +11,27 @@ export class ProductsModel{
     get(){
         return this.productsData.get()
             .then((products) => {
+                this.transformProducts(products);
                 angular.copy(products, this.products);
             })
+    }
+    
+    transformProducts(products){
+        for(let product of products){
+            product.expirationType = function () {
+                let date = new Date(this.purchaseDate);
+                date.setYear(date.getFullYear() + this.period);
+                let dateNow = new Date();
+                if (date < dateNow) {
+                    return 2;
+                }
+                dateNow.setDate(dateNow.getDate() + 14);
+                if (date < dateNow) {
+                    return 1;
+                }
+                return 0;
+            };
+        }
     }
 
     add(product) {
@@ -46,5 +65,9 @@ export class ProductsModel{
     
     get uploadUrl(){
         return this.productsData.uploadUrl;
+    }
+    
+    get imageUrl(){
+        return this.productsData.imageUrl;
     }
 }

@@ -10,6 +10,8 @@ var busboxMiddleware   = busboyBodyParser({limit: '5mb'});
 var flow               = require('../models/flow-node.js')('tmp');
 var fs                 = require('fs');
 var productsModel      = require('../models/products');
+var multer             = require('multer');
+var uploadMiddleware   = multer().any();
 
 var router = express.Router();
 
@@ -53,10 +55,13 @@ router.get('/image/upload/:productId', function (req, res) {
     });*/
 });
 
-router.post('/image/upload/:productId', busboxMiddleware, function (req, res) {
+router.post('/image/upload/:productId', uploadMiddleware, function (req, res) {
 
-    productsModel.addImage(req.params.productId, req.files.file.name, req.files.file.data, req.files.file.mimetype, function(err, imageId){
-        res.status(200).send({imageId: imageId, fileName: req.files.file.name});
+    console.log('we are here: ' + req.params.productId);
+    console.log(req.body);
+    console.log(req.files);
+    productsModel.addImage(req.params.productId, req.body.flowFilename, req.files[0].buffer, req.files[0].mimetype, function(err, imageId){
+        res.status(200).send({imageId: imageId, fileName: req.body.flowFilename});
     });
 });
 

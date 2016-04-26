@@ -1,0 +1,15 @@
+.products-list{
+
+}
+
+.products-list .expired-icon {
+    color: red;
+}
+
+.products-list .going-to-expire-icon {
+    color: yellow;
+}
+
+.products-list .ok-icon {
+    display: none;
+}

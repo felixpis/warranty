@@ -41,5 +41,15 @@
         })
     };
 
+    products.setImageName = function (productId, name) {
+        database.getDB(function (err, db) {
+            db.products.updateOne({_id: new db.objectId(productId)}, {$addToSet: {images: name}});
+        })
+    };
+
+    products.removeImageName = function (productId, name) {
+
+    }
+
 
 })(module.exports);

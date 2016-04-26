@@ -24,9 +24,17 @@
     </div>
     <div class="form-group">
         Upload pictures
-        <div flow-init="{target: ''}"
-             flow-files-submitted="$flow.upload()">
-            <input type="file" flow-btn/>
+        <div flow-init="{chunkSize: 5 * 1024 * 1024}"
+             flow-name="$ctrl.flowObj.flow"
+             flow-files-submitted="$flow.upload()"
+             flow-file-success="$ctrl.uploadCompleted($message)">
+            <button type="button" class="btn btn-default" flow-btn>Add pictures</button>
+            <!--<img ng-src="{{file.file}}" alt="" ng-repeat="file in $ctrl.flowObj.flow.files">-->
+        </div>
+        <div class="images">
+            <div ng-repeat="fileName in $ctrl.productToEdit.images" ng-click="$ctrl.openFile(fileName)">
+                <img ng-src="{{$ctrl.getProductImage(fileName)}}" class="img-thumbnail" alt="">
+            </div>
         </div>
     </div>
     <div class="form-group">

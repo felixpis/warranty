@@ -34,7 +34,10 @@
             fileBytes: fileBytes,
             contentType: contentType
         };
-        dataImages.save(image, next);
+        dataImages.save(image, function(err, imageId){
+            data.setImageName(productId, name);
+            next(err, imageId);
+        });
     };
 
     products.loadImage = function(productId, fileName, next){

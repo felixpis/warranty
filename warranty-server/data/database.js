@@ -23,6 +23,7 @@
             mongoClient.connect(url, function (err, db) {
                 if (err) {
                     console.log('Failed to connect to server');
+                    console.log(err);
                     return next(err);
                 }
                 console.log("Connected correctly to server.");
