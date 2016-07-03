@@ -6,6 +6,7 @@ import './product-details.css';
 import detailsTemplate from './product-details.html';
 
 class ProductDetailsController {
+    /*@ngInject*/
     constructor(modalsService) {
         this.modalsService = modalsService;
         this._selected = null;
@@ -13,11 +14,11 @@ class ProductDetailsController {
         this.flowObj = {};
     }
 
-    get selected(){
+    get selectedProduct(){
         return this._selected;
     }
 
-    set selected(value){
+    set selectedProduct(value){
         if (value) {
             this._selected = value;
             this.productToEdit = angular.copy(value);
@@ -61,12 +62,12 @@ class ProductDetailsController {
 
 export var ProductDetailsComponent = {
     bindings: {
-        selected: '=',
+        selectedProduct: '=',
         remove: '&',
         save: '&',
         uploadUrl: '=',
         imageUrl: '='
     },
     controller: ProductDetailsController,
-    template: detailsTemplate
+    templateUrl: detailsTemplate
 };

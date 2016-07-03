@@ -5,13 +5,13 @@
     <div class="row">
         <div class="col-md-4">
             <products-list list="products.productsList"
-                           selected="products.selectedProduct"
+                           selected-product="products.selectedProduct"
                            select="products.selectProduct(product)"
                            add="products.addProduct(name)"></products-list>
         </div>
         <div class="col-md-8">
             <product-details
-                    selected="products.selectedProduct"
+                    selected-product="products.selectedProduct"
                     upload-url="products.uploadUrl"
                     image-url="products.imageUrl"
                     remove="products.deleteProduct()"

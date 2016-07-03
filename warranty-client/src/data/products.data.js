@@ -3,6 +3,7 @@
  */
 
 export class ProductsDataProvider{
+    /*@ngInject*/
     constructor($http, CONFIG){
         this.$http = $http;
         this.url = CONFIG.serverUrl + 'products/';

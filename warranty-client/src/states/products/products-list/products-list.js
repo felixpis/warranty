@@ -6,6 +6,7 @@ import './products-list.css';
 import listTemplate from './products-list.html';
 
 class ProductsListController {
+    /*@ngInject*/
     constructor(modalsService) {
         this.modalsService = modalsService;
     }
@@ -28,11 +29,11 @@ class ProductsListController {
 
 export var ProductsListComponent = {
     bindings: {
-        selected: '=',
+        selectedProduct: '=',
         list: '=',
         select: '&',
         add: '&'
     },
     controller: ProductsListController,
-    template: listTemplate
+    templateUrl: listTemplate
 };

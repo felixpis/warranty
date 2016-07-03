@@ -4,28 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "webpack-dev-server --hot --inline",
-    "bundle": "cp src/index.html dist/ & webpack -p ./dist/bundle.js"
+    "start": "set NODE_ENV=development && webpack-dev-server --hot --inline --progress",
+    "build": "set NODE_ENV=production && webpack -p --progress"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "babel-core": "5.6.4",
-    "babel-loader": "5.1.4",
-    "css-loader": "0.15.1",
-    "file-loader": "0.8.4",
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "imports-loader": "^0.6.5",
-    "json-loader": "0.5.2",
-    "node-libs-browser": "0.5.2",
-    "raw-loader": "0.5.1",
-    "style-loader": "0.12.3",
-    "url-loader": "0.5.6",
-    "webpack": "1.9.11",
-    "webpack-dev-server": "1.9.0"
-  },
   "dependencies": {
     "angular": "^1.5.0",
     "angular-ui-bootstrap": "^1.3.2",
@@ -33,5 +16,22 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.5.0",
     "ng-flow": "^2.1.4"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "3.1.0",
+    "babel-core": "5.8.29",
+    "babel-loader": "5.3.2",
+    "clean-webpack-plugin": "0.1.4",
+    "css-loader": "0.21.0",
+    "file-loader": "0.8.4",
+    "html-loader": "0.3.0",
+    "html-webpack-plugin": "1.6.1",
+    "json-loader": "0.5.3",
+    "ng-annotate-loader": "0.0.6",
+    "ngtemplate-loader": "1.3.0",
+    "style-loader": "0.13.0",
+    "url-loader": "0.5.6",
+    "webpack": "1.12.2",
+    "webpack-dev-server": "1.12.1"
   }
 }

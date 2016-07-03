@@ -4,6 +4,7 @@
 
 
 export class ProductsController{
+    /*@ngInject*/
     constructor(productsModel){
         this.productsModel = productsModel;
         this.selectedProduct = {};

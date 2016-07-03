@@ -11,7 +11,7 @@
             <a href="#" class="list-group-item"
                ng-repeat="product in $ctrl.list"
                ng-click="$ctrl.select({product: product})"
-               ng-class="{active: product._id == $ctrl.selected._id}">
+               ng-class="{active: product._id == $ctrl.selectedProduct._id}">
                 {{product.name}}
                 <i class="fa fa-exclamation pull-right" ng-class="$ctrl.expirationClass(product)"></i>
             </a>

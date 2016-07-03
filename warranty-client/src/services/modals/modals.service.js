@@ -9,6 +9,7 @@ import {PromptController} from './prompt/prompt.controller';
 import {ConfirmController} from './confirm/confirm.controller';
 
 export class ModalsService{
+    /*@ngInject*/
     constructor($uibModal){
         this.$uibModal = $uibModal;
     }

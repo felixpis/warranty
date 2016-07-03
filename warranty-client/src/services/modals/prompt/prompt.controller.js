@@ -3,6 +3,7 @@
  */
 
 export class PromptController {
+    /*@ngInject*/
     constructor($uibModalInstance, value, title) {
         this.$uibModalInstance = $uibModalInstance;
 

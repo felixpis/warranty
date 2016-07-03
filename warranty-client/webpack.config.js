@@ -1,45 +1,142 @@
-var path = require('path');
+/* global __dirname, process */
 
-module.exports = {
+const webpack           = require('webpack');
+const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanPlugin       = require('clean-webpack-plugin');
+//const environmentsFile  = require('./environments.json');
+const appPath           = path.join(__dirname, 'src');
+const distPath          = path.join(__dirname, 'dist');
+const exclude           = /node_modules/;
 
-  // set the context (optional)
-  context: path.join( __dirname, '/src'),
-  entry: 'app.js',
+/*function getENVReplacements() {
+  const replacements = environmentsFile[process.env.NODE_ENV];
+  const result       = {};
 
-  // enable loading modules relatively (without the ../../ prefix)
+  /!* eslint-disable angular/json-functions *!/
+  Object.keys(replacements)
+      .forEach((key) => result[key] = JSON.stringify(replacements[key]));
+
+  return result;
+}*/
+
+const config = {
+
+  // The base directory for resolving `entry` (must be absolute path)
+  context: appPath,
+
+  entry: {
+    app: 'app.js',
+    vendor: [
+      'angular',
+      'angular-ui-router',
+      'angular-ui-bootstrap'
+    ]
+  },
+
+  output: {
+    path: distPath,
+    publicPath: '/',
+    filename: 'bundle.[hash].js'
+  },
+
+  plugins: [
+
+    // Generate index.html with included script tags
+    new HtmlWebpackPlugin({
+      inject: 'body',
+      template: 'src/index.html'
+    }),
+
+    // Remove build related folders
+    new CleanPlugin(['dist']),
+
+    // Do not output to dist if there are errors
+    new webpack.NoErrorsPlugin(),
+
+    // Global replacements for each environment
+    //new webpack.DefinePlugin(getENVReplacements()),
+  ],
+
+  // Enable loading modules relatively (without the ../../ prefix)
   resolve: {
-    root: path.join( __dirname, '/src')
+    root: [appPath]
   },
 
   module: {
     loaders: [
 
-      // load and compile javascript
-      { test: /\.js$/, exclude: /node_modules/, loader:"babel" },
+      // Transpile ES6 and annotate AngularJS dependencies
+      {
+        test: /\.js$/,
+        loaders: [
+          'ng-annotate',
+          'babel'
+        ],
+        exclude
+      },
 
-      // load css and process less
-      { test: /\.css$/, loader: "style!css"},
+      // SCSS
+      {
+        test: /\.(css)$/,
+        loaders: [
+          'style',
+          'css',
+          'autoprefixer'
+        ]
+      },
 
-      // load JSON files and HTML
-      { test: /\.json$/, loader: "json" },
-      { test: /\.html$/, exclude: /node_modules/, loader:"raw" },
+      // JSON
+      {
+        test: /\.json$/,
+        loader: 'json',
+        exclude
+      },
 
-      // load fonts(inline base64 URLs for <=8k)
-      { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file" },
-      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=8192&minetype=application/font-woff"},
+      // Allow `require`ing image/font files (also when included in CSS)
+      // Inline assets under 5kb as Base64 data URI, otherwise uses `file-loader`
+      {
+        test: /\.(eot|woff2?|ttf|otf)(\?.*)?$/i,
+        loader: 'url?limit=5120&name=[path][name].[hash].[ext]'
+      },
 
-      // load images (inline base64 URLs for <=8k images)
-      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
+      {
+        test: /\.(jpe?g|png|gif|svg)(\?.*)?$/i,
+        loader: 'url?limit=5120&name=[path][name].[hash].[ext]'
+      },
+
+      // Create AngularJS templates from HTMLs
+      {
+        test: /\.html$/,
+        loaders: [
+          `ngtemplate?relativeTo=${appPath}`,
+          'html'
+        ]
+      }
     ]
   },
 
-  // webpack dev server configuration
+  // Settings for webpack-dev-server
+  // `--hot` and `--progress` must be set using CLI
   devServer: {
-    contentBase: "./src",
-    port: 2500,
-    noInfo: false
-  },
+    contentBase: './src',
+    noInfo: false,
+    inline: true
+  }
 
-  // support source maps
-  devtool: "#inline-source-map"
 };
+
+if (process.env.NODE_ENV === 'development') {
+  config.devtool = '#inline-source-map';
+}
+
+if (process.env.NODE_ENV !== 'test') {
+  config.plugins.push(
+      new webpack.optimize.CommonsChunkPlugin(
+          /* chunkName: */ 'vendor',
+          /* filename: */ 'vendor.[hash].js'
+      )
+  );
+}
+
+module.exports = config;

@@ -3,7 +3,7 @@
  */
 
 import 'angular-ui-router';
-
+import productsTemplate from './products/products.html';
 
 import productsModule from './products/products.module';
 
@@ -21,7 +21,7 @@ export default angular.module('statesModule', dependencies)
         $stateProvider
             .state('products', {
                 url: "/",
-                templateUrl: "states/products/products.html",
+                templateUrl: productsTemplate,
                 controller: 'ProductsController',
                 controllerAs: 'products'
             });

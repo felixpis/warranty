@@ -3,6 +3,7 @@
  */
 
 export class ConfirmController{
+    /*@ngInject*/
     constructor($uibModalInstance, text){
         this.$uibModalInstance = $uibModalInstance;
         this.text = text;

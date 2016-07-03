@@ -1,0 +1,23 @@
+{
+  "apps" : [
+    {
+      "name" : "warranty",
+      "script" : "app.js",
+      "env": {
+        "NODE_ENV" : "production",
+        "PORT" : 3002
+      }
+    }
+  ],
+  "deploy" : {
+    "production" : {
+      "user" : "felixp",
+      "host" : "37.139.22.221",
+      "ref" : "origin/master",
+      "repo" : "https://github.com/felixpis/warranty",
+      "path" : "/home/felixp/dev/warranty",
+      "pre-deploy-local" : "echo 'Started to deploy'",
+      "post-deploy" : "cp -a warranty-server/. ~/sites/warranty && cd ~/sites/warranty && npm install --production && pm2 startOrRestart ecosystem.json"
+    }
+  }
+}

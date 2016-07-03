@@ -3,6 +3,7 @@
  */
 
 export class ProductsModel{
+    /*@ngInject*/
     constructor(productsData) {
         this.productsData = productsData;
         this.products = [];
