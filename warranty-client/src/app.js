@@ -12,12 +12,12 @@ import 'font-awesome/css/font-awesome.css';
 
 import config from 'config.json';
 
-import 'assets/site.css';
+import './assets/site.css';
 
-import statesModule from 'states/states';
-import modelsModule from 'models/models.module';
-import dataModule from 'data/data.module';
-import servicesModule from 'services/services.module';
+import statesModule from './states/states';
+import modelsModule from './models/models.module';
+import dataModule from './data/data.module';
+import servicesModule from './services/services.module';
 
 let dependencies = [
     'ui.bootstrap',
