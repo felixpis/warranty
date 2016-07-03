@@ -7,7 +7,7 @@
       "repo" : "https://github.com/felixpis/warranty",
       "path" : "/home/felixp/dev/warranty",
       "pre-deploy-local" : "echo 'Started to deploy'",
-      "post-deploy" : "cd warranty-client/ && npm install && npm run bundle && cp -a dist/* ~/sites/warranty/public"
+      "post-deploy" : "cd warranty-client/ && npm install && npm run build && cp -a dist/* ~/sites/warranty/public"
     }
   }
 }
