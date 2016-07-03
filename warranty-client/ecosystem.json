@@ -1,0 +1,13 @@
+{
+  "deploy" : {
+    "production" : {
+      "user" : "felixp",
+      "host" : "37.139.22.221",
+      "ref" : "origin/master",
+      "repo" : "https://github.com/felixpis/warranty",
+      "path" : "/home/felixp/dev/warranty",
+      "pre-deploy-local" : "echo 'Started to deploy'",
+      "post-deploy" : "cd warranty-client/ && npm install && npm run bundle && cp -a dist/* ~/sites/warranty/public"
+    }
+  }
+}
