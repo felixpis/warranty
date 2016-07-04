@@ -16,7 +16,7 @@ export class ModalsService{
 
     prompt(value, title){
         let modalInstance = this.$uibModal.open({
-            template: promptTemplate,
+            templateUrl: promptTemplate,
             controller: PromptController,
             controllerAs: 'prompt',
             resolve: {
@@ -34,7 +34,7 @@ export class ModalsService{
 
     confirm(text){
         let modalInstance = this.$uibModal.open({
-            template: confirmTemplate,
+            templateUrl: confirmTemplate,
             controller: ConfirmController,
             controllerAs: 'confirm',
             resolve: {
