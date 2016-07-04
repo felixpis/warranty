@@ -4,21 +4,21 @@ const webpack           = require('webpack');
 const path              = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanPlugin       = require('clean-webpack-plugin');
-//const environmentsFile  = require('./environments.json');
+const configFile        = require('./config.json');
 const appPath           = path.join(__dirname, 'src');
 const distPath          = path.join(__dirname, 'dist');
 const exclude           = /node_modules/;
 
-/*function getENVReplacements() {
-  const replacements = environmentsFile[process.env.NODE_ENV];
+function getENVReplacements() {
+  const replacements = configFile[process.env.NODE_ENV];
   const result       = {};
 
-  /!* eslint-disable angular/json-functions *!/
+  /* eslint-disable angular/json-functions */
   Object.keys(replacements)
       .forEach((key) => result[key] = JSON.stringify(replacements[key]));
 
   return result;
-}*/
+}
 
 const config = {
 
@@ -55,7 +55,7 @@ const config = {
     new webpack.NoErrorsPlugin(),
 
     // Global replacements for each environment
-    //new webpack.DefinePlugin(getENVReplacements()),
+    new webpack.DefinePlugin(getENVReplacements())
   ],
 
   // Enable loading modules relatively (without the ../../ prefix)
@@ -121,7 +121,8 @@ const config = {
   devServer: {
     contentBase: './src',
     noInfo: false,
-    inline: true
+    inline: true,
+    historyApiFallback: true
   }
 
 };

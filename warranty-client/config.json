@@ -1,0 +1,8 @@
+{
+  "development" : {
+    "$_SERVER_URL": "http://localhost:3000/"
+  },
+  "production" : {
+    "$_SERVER_URL" : "/"
+  }
+}
