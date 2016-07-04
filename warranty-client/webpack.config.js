@@ -10,7 +10,7 @@ const distPath          = path.join(__dirname, 'dist');
 const exclude           = /node_modules/;
 
 function getENVReplacements() {
-  const replacements = configFile[process.env.NODE_ENV];
+  const replacements = configFile[process.env.NODE_ENV.trim()];
   const result       = {};
 
   /* eslint-disable angular/json-functions */
