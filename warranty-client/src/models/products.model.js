@@ -38,6 +38,7 @@ export class ProductsModel{
     add(product) {
         return this.productsData.add(product)
             .then((newProduct) => {
+                this.transformProducts([newProduct]);
                 this.products.unshift(newProduct);
             });
     }
