@@ -2,7 +2,6 @@
  * Created by felixp on 10/03/2016.
  */
 
-import 'angular-ui-router';
 import productsTemplate from './products/products.html';
 
 import productsModule from './products/products.module';

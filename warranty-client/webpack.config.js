@@ -27,17 +27,13 @@ const config = {
 
   entry: {
     app: 'app.js',
-    vendor: [
-      'angular',
-      'angular-ui-router',
-      'angular-ui-bootstrap'
-    ]
+    vendor: 'libs.js'
   },
 
   output: {
     path: distPath,
     publicPath: '/',
-    filename: 'bundle.[hash].js'
+    filename: '[name]-bundle.[hash].js'
   },
 
   plugins: [
@@ -127,17 +123,17 @@ const config = {
 
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV.trim() === 'development') {
   config.devtool = '#inline-source-map';
 }
 
-if (process.env.NODE_ENV !== 'test') {
+/*if (process.env.NODE_ENV !== 'test') {
   config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin(
-          /* chunkName: */ 'vendor',
-          /* filename: */ 'vendor.[hash].js'
+          /!* chunkName: *!/ 'vendor',
+          /!* filename: *!/ 'vendor.[hash].js'
       )
   );
-}
+}*/
 
 module.exports = config;
