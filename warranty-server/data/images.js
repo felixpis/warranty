@@ -14,19 +14,11 @@
         })
     };
 
-    images.get = function(productId, fileName, next){
+    images.get = function(imageId, next){
         database.getDB(function(err, db){
             //productId, name, fileBytes, contentType
-            console.log(productId);
-            console.log(fileName);
-            db.images.find({productId: productId, name: fileName}).toArray(function(err, images){
-                if (images.length > 0) {
-                    next(null, images[0]);
-                }
-                else{
-                    next(err, null);
-                }
-
+            db.images.findOne({_id: new db.objectId(imageId)}, function(err, image){
+                next(err, image);
             })
         })
     };

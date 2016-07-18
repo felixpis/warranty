@@ -127,13 +127,13 @@ if (process.env.NODE_ENV.trim() === 'development') {
   config.devtool = '#inline-source-map';
 }
 
-/*if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test') {
   config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin(
-          /!* chunkName: *!/ 'vendor',
-          /!* filename: *!/ 'vendor.[hash].js'
+          /* chunkName: */ 'vendor',
+          /* filename: */ 'vendor.[hash].js'
       )
   );
-}*/
+}
 
 module.exports = config;

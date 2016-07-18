@@ -18,17 +18,39 @@
     display: inline-block;
     margin: 10px 10px 10px 0;
     text-align: center;
-    cursor: pointer;
     vertical-align: middle;
+    position: relative;
+}
+
+.product-details .images > div > .fa-remove{
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 9px;
+    color: red;
+    font-size: 1.4em;
+    cursor: pointer;
 }
 
 .product-details .images > div:hover{
     border: solid 1px lightgray;
 }
 
+.product-details .images > div:hover > .fa-remove{
+    display: inline-block;
+}
+
 .product-details .images > div > img {
     max-width: 100%;
     max-height: 100%;
     margin-bottom: 0.25em;
+    cursor: pointer;
 }
 
+.product-details .expired-color {
+    color: red;
+}
+
+.product-details .going-to-expire-color {
+    color: #ffbc0c;
+}

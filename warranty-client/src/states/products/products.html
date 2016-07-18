@@ -7,11 +7,16 @@
             <products-list list="products.productsList"
                            selected-product="products.selectedProduct"
                            select="products.selectProduct(product)"
-                           add="products.addProduct(name)"></products-list>
+                           add="products.addProduct(name, period)"></products-list>
         </div>
         <div class="col-md-8">
+            <p class="bg-info" style="padding: 15px;" ng-if="!products.selectedProduct">
+                Please select product from list
+            </p>
             <product-details
+                    ng-if="!!products.selectedProduct"
                     selected-product="products.selectedProduct"
+                    options="products.detailsOptions"
                     upload-url="products.uploadUrl"
                     image-url="products.imageUrl"
                     remove="products.deleteProduct()"

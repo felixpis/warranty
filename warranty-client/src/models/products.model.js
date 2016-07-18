@@ -19,7 +19,26 @@ export class ProductsModel{
     
     transformProducts(products){
         for(let product of products){
-            product.expirationType = function () {
+            angular.extend(product, {
+                get expirationDate(){
+                    let date = new Date(product.purchaseDate);
+                    date.setYear(date.getFullYear() + product.period);
+                    return date;
+                },
+                get expirationType(){
+                    let date = product.expirationDate;
+                    let dateNow = new Date();
+                    if (date < dateNow) {
+                        return 2;
+                    }
+                    dateNow.setDate(dateNow.getDate() + 14);
+                    if (date < dateNow) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            });
+            /*product.expirationType = function () {
                 let date = new Date(this.purchaseDate);
                 date.setYear(date.getFullYear() + this.period);
                 let dateNow = new Date();
@@ -31,7 +50,7 @@ export class ProductsModel{
                     return 1;
                 }
                 return 0;
-            };
+            };*/
         }
     }
 
@@ -52,6 +71,7 @@ export class ProductsModel{
 
                 if (foundProduct) {
                     angular.copy(product, foundProduct);
+                    this.transformProducts([foundProduct]);
                 }
             });
     }

@@ -1,13 +1,28 @@
 <div class="product-details">
-    <div class="form-group">
+    <h3 ng-show="!$ctrl.productToEdit">{{$ctrl.selectedProduct.name}}</h3>
+    <div class="form-group" ng-hide="!$ctrl.productToEdit">
         <label>Product name</label>
         <input type="text" class="form-control" ng-model="$ctrl.productToEdit.name"/>
     </div>
-    <div class="form-group">
+    <div ng-show="!$ctrl.productToEdit">
+        {{$ctrl.selectedProduct.comments}}
+    </div>
+    <div class="form-group" ng-hide="!$ctrl.productToEdit">
         <label>Comments</label>
         <textarea class="form-control" rows="4" ng-model="$ctrl.productToEdit.comments"></textarea>
     </div>
-    <div class="form-group">
+    <div ng-show="!$ctrl.productToEdit">
+        <p ng-show="$ctrl.selectedProduct.expirationType == 0">
+            Expires on {{$ctrl.selectedProduct.expirationDate | date}}
+        </p>
+        <p ng-show="$ctrl.selectedProduct.expirationType == 1" class="going-to-expire-color">
+            Going to expire soon on {{$ctrl.selectedProduct.expirationDate | date}}
+        </p>
+        <p ng-show="$ctrl.selectedProduct.expirationType == 2" class="expired-color">
+            Already expired at {{$ctrl.selectedProduct.expirationDate | date}}
+        </p>
+    </div>
+    <div class="form-group" ng-hide="!$ctrl.productToEdit">
         <label>Purchase date</label>
         <p class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup="dd MMMM yyyy" ng-model="$ctrl.productToEdit.purchaseDate"
@@ -18,35 +33,55 @@
           </span>
         </p>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-hide="!$ctrl.productToEdit">
         <label>Period</label>
         <div><input type="number" class="form-control period-input" ng-model="$ctrl.productToEdit.period"/> years</div>
     </div>
-    <div class="form-group">
+    <div ng-show="!$ctrl.productToEdit">
+        <div class="images">
+            <div ng-repeat="image in $ctrl.selectedProduct.images">
+                <img ng-src="{{$ctrl.getProductImage(image)}}" ng-click="$ctrl.openFile(image)" class="img-thumbnail" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-hide="!$ctrl.productToEdit">
         Upload pictures
-        <div flow-init="{chunkSize: 5 * 1024 * 1024}"
-             flow-name="$ctrl.flowObj.flow"
+        <div flow-init="{target: $ctrl.getUploadUrl(), chunkSize: 5 * 1024 * 1024}"
              flow-files-submitted="$flow.upload()"
              flow-file-success="$ctrl.uploadCompleted($message)">
             <button type="button" class="btn btn-default" flow-btn>Add pictures</button>
             <!--<img ng-src="{{file.file}}" alt="" ng-repeat="file in $ctrl.flowObj.flow.files">-->
         </div>
         <div class="images">
-            <div ng-repeat="fileName in $ctrl.productToEdit.images" ng-click="$ctrl.openFile(fileName)">
-                <img ng-src="{{$ctrl.getProductImage(fileName)}}" class="img-thumbnail" alt="">
+            <div ng-repeat="image in $ctrl.productToEdit.images">
+                <img ng-src="{{$ctrl.getProductImage(image)}}" ng-click="$ctrl.openFile(image)" class="img-thumbnail" alt="">
+                <i class="fa fa-remove" ng-click="$ctrl.removeImage($index)"></i>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <button type="button" class="btn btn-success" ng-disabled="!$ctrl.productToEdit"
-                ng-click="$ctrl.save({product: $ctrl.productToEdit})">
-            <i class="fa fa-save"></i>
-            Save
+    <div class="form-group" ng-show="!$ctrl.productToEdit" style="margin-top: 30px;">
+        <button type="button" class="btn btn-default"
+                ng-click="$ctrl.editProduct()">
+            <i class="fa fa-pencil-square"></i>
+            Edit
         </button>
-        <button type="button" class="btn btn-danger pull-right" ng-disabled="!$ctrl.productToEdit"
+        <button type="button" class="btn btn-danger pull-right"
                 ng-click="$ctrl.removeProduct()">
             <i class="fa fa-remove"></i>
             Remove product
+        </button>
+
+    </div>
+    <div class="form-group" ng-hide="!$ctrl.productToEdit" style="margin-top: 30px;">
+        <button type="button" class="btn btn-success"
+                ng-click="$ctrl.saveProduct()">
+            <i class="fa fa-save"></i>
+            Save
+        </button>
+        <button type="button" class="btn btn-default"
+                ng-click="$ctrl.cancelEdit()">
+            <i class="fa fa-close"></i>
+            Cancel
         </button>
     </div>
 </div>

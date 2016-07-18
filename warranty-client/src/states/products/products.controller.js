@@ -7,8 +7,8 @@ export class ProductsController{
     /*@ngInject*/
     constructor(productsModel){
         this.productsModel = productsModel;
-        this.selectedProduct = {};
-        this.productToEdit = {};
+        this.selectedProduct = null;
+        this.detailsOptions = {};
 
         this.productsList = this.productsModel.products;
         this.uploadUrl =productsModel.uploadUrl;
@@ -20,14 +20,14 @@ export class ProductsController{
     loadProducts(){
         this.productsModel.get()
             .then(() => {
-                if (this.productsList.length > 0) {
+                /*if (this.productsList.length > 0) {
                     this.selectedProduct = this.productsList[0];
-                }
+                }*/
             })
     }
 
-    addProduct(name){
-        this.productsModel.add({name})
+    addProduct(name, period){
+        this.productsModel.add({name, period})
             .then(() => {
                 this.selectedProduct = this.productsList[0];
             })
@@ -46,5 +46,8 @@ export class ProductsController{
 
     selectProduct(product){
         this.selectedProduct = product;
+        if (this.detailsOptions.cancelEdit) {
+            this.detailsOptions.cancelEdit();
+        }
     }
 }

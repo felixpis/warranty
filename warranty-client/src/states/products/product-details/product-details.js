@@ -10,11 +10,16 @@ class ProductDetailsController {
     constructor(modalsService) {
         this.modalsService = modalsService;
         this._selected = null;
-        this.productToEdit = {};
+        this.productToEdit = null;
+        if (this.options){
+            this.options.cancelEdit = () => {
+                this.cancelEdit();
+            }
+        }
         this.flowObj = {};
     }
 
-    get selectedProduct(){
+    /*get selectedProduct(){
         return this._selected;
     }
 
@@ -29,6 +34,27 @@ class ProductDetailsController {
 
             }
         }
+    }*/
+
+    getUploadUrl(){
+        return this.uploadUrl;
+    }
+
+    saveProduct(){
+        this.save({product: this.productToEdit});
+        this.productToEdit = null;
+    }
+
+    editProduct(){
+        this.productToEdit = angular.copy(this.selectedProduct);
+        this.productToEdit.purchaseDate = new Date(this.productToEdit.purchaseDate);
+        /*if (this.flowObj) {
+            this.flowObj.flow.opts.target = `${this.uploadUrl}${this.productToEdit._id}`;
+        }*/
+    }
+
+    cancelEdit(){
+        this.productToEdit = null;
     }
 
     removeProduct() {
@@ -39,29 +65,30 @@ class ProductDetailsController {
             });
     };
 
-    openFile(fileName){
-        window.open(this.getProductImage(fileName));
+    openFile(image){
+        window.open(this.getProductImage(image));
     }
     
-    getProductImage(fileName){
-        return `${this.imageUrl}${this.productToEdit._id}/${fileName}`
+    getProductImage(image){
+        return `${this.imageUrl}${image.imageId}/${image.fileName}`;
+    }
+
+    removeImage($index){
+        this.productToEdit.images.splice($index, 1);
     }
 
     uploadCompleted(message){
         let result = JSON.parse(message);
-        if(!this._selected.images){
-            this._selected.images = [];
-        }
         if(!this.productToEdit.images) {
             this.productToEdit.images = [];
         }
-        this._selected.images.push(result.fileName);
-        this.productToEdit.images.push(result.fileName);
+        this.productToEdit.images.push(result);
     }
 }
 
 export var ProductDetailsComponent = {
     bindings: {
+        options: '=',
         selectedProduct: '=',
         remove: '&',
         save: '&',

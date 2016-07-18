@@ -27,21 +27,25 @@
         })
     };
 
-    products.addImage = function(productId, name, fileBytes, contentType, next){
+    products.addImage = function(name, fileBytes, next){
         var image = {
-            productId: productId,
             name: name,
-            fileBytes: fileBytes,
-            contentType: contentType
+            fileBytes: fileBytes
         };
         dataImages.save(image, function(err, imageId){
-            data.setImageName(productId, name);
             next(err, imageId);
         });
     };
 
-    products.loadImage = function(productId, fileName, next){
-        dataImages.get(productId, fileName, next);
+    products.loadImage = function(imageId, next){
+        dataImages.get(imageId, function (err, image) {
+            if (image){
+                next(null, image.fileBytes.buffer)
+            }
+            else{
+                next(err, null);
+            }
+        });
     };
 
     products.removeImage = function(productId, fileName, next) {
