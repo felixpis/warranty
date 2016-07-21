@@ -9,32 +9,14 @@ class ProductDetailsController {
     /*@ngInject*/
     constructor(modalsService) {
         this.modalsService = modalsService;
-        this._selected = null;
+        this.inProgress = false;
         this.productToEdit = null;
         if (this.options){
             this.options.cancelEdit = () => {
                 this.cancelEdit();
             }
         }
-        this.flowObj = {};
     }
-
-    /*get selectedProduct(){
-        return this._selected;
-    }
-
-    set selectedProduct(value){
-        if (value) {
-            this._selected = value;
-            this.productToEdit = angular.copy(value);
-            this.productToEdit.purchaseDate = new Date(this.productToEdit.purchaseDate);
-            if (this.flowObj) {
-                this.flowObj.flow.opts.target = `${this.uploadUrl}${value._id}`;
-                console.log(this.flowObj.flow.opts.target);
-
-            }
-        }
-    }*/
 
     getUploadUrl(){
         return this.uploadUrl;
@@ -48,9 +30,6 @@ class ProductDetailsController {
     editProduct(){
         this.productToEdit = angular.copy(this.selectedProduct);
         this.productToEdit.purchaseDate = new Date(this.productToEdit.purchaseDate);
-        /*if (this.flowObj) {
-            this.flowObj.flow.opts.target = `${this.uploadUrl}${this.productToEdit._id}`;
-        }*/
     }
 
     cancelEdit(){
@@ -83,6 +62,15 @@ class ProductDetailsController {
             this.productToEdit.images = [];
         }
         this.productToEdit.images.push(result);
+    };
+
+    uploadStarted($flow) {
+        this.inProgress = true;
+        $flow.upload();
+    };
+
+    uploadEnded() {
+        this.inProgress = false;
     }
 }
 

@@ -16,23 +16,36 @@ export class ProductsModel{
                 angular.copy(products, this.products);
             })
     }
-    
+
     transformProducts(products){
         for(let product of products){
             angular.extend(product, {
+                get expirationDays() {
+                    let date = new Date();
+                    let expDate = new Date(product.purchaseDate);
+                    expDate.setYear(expDate.getFullYear() + product.period);
+                    var ONE_DAY = 1000 * 60 * 60 * 24;
+                    var date1_ms = date.getTime();
+                    var date2_ms = expDate.getTime();
+
+                    // Calculate the difference in milliseconds
+                    var difference_ms = date2_ms - date1_ms;
+
+                    // Convert back to days and return
+                    return Math.round(difference_ms/ONE_DAY);
+                },
                 get expirationDate(){
                     let date = new Date(product.purchaseDate);
                     date.setYear(date.getFullYear() + product.period);
                     return date;
                 },
                 get expirationType(){
-                    let date = product.expirationDate;
-                    let dateNow = new Date();
-                    if (date < dateNow) {
+                    let days = product.expirationDays;
+                    console.log(days);
+                    if (days < 0) {
                         return 2;
                     }
-                    dateNow.setDate(dateNow.getDate() + 14);
-                    if (date < dateNow) {
+                    if (days < 14) {
                         return 1;
                     }
                     return 0;

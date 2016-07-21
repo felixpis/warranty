@@ -1,0 +1,20 @@
+{
+  "name": "warranty",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Felix <joylandraver@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/felixpis/warranty",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ng-flow": "^2.7.4"
+  }
+}

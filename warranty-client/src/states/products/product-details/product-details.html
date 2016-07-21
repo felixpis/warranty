@@ -12,14 +12,11 @@
         <textarea class="form-control" rows="4" ng-model="$ctrl.productToEdit.comments"></textarea>
     </div>
     <div ng-show="!$ctrl.productToEdit">
-        <p ng-show="$ctrl.selectedProduct.expirationType == 0">
-            Expires on {{$ctrl.selectedProduct.expirationDate | date}}
-        </p>
         <p ng-show="$ctrl.selectedProduct.expirationType == 1" class="going-to-expire-color">
-            Going to expire soon on {{$ctrl.selectedProduct.expirationDate | date}}
+            Expires in {{$ctrl.selectedProduct.expirationDays}} days
         </p>
         <p ng-show="$ctrl.selectedProduct.expirationType == 2" class="expired-color">
-            Already expired at {{$ctrl.selectedProduct.expirationDate | date}}
+            Expired at {{$ctrl.selectedProduct.expirationDate | date}}
         </p>
     </div>
     <div class="form-group" ng-hide="!$ctrl.productToEdit">
@@ -47,10 +44,17 @@
     <div class="form-group" ng-hide="!$ctrl.productToEdit">
         Upload pictures
         <div flow-init="{target: $ctrl.getUploadUrl(), chunkSize: 5 * 1024 * 1024}"
-             flow-files-submitted="$flow.upload()"
-             flow-file-success="$ctrl.uploadCompleted($message)">
+             flow-files-submitted="$ctrl.uploadStarted($flow)"
+             flow-file-success="$ctrl.uploadCompleted($message)"
+             flow-complete="$ctrl.uploadEnded()">
             <button type="button" class="btn btn-default" flow-btn>Add pictures</button>
-            <!--<img ng-src="{{file.file}}" alt="" ng-repeat="file in $ctrl.flowObj.flow.files">-->
+            <div ng-show="$ctrl.inProgress" class="progresses">
+
+                <uib-progressbar ng-repeat="file in $flow.files"
+                                 class="progress-striped active"
+                                 type="primary"
+                                 value="file.progress() * 100"></uib-progressbar>
+            </div>
         </div>
         <div class="images">
             <div ng-repeat="image in $ctrl.productToEdit.images">

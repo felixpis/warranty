@@ -54,3 +54,7 @@
 .product-details .going-to-expire-color {
     color: #ffbc0c;
 }
+
+.product-details .progresses {
+    margin-top: 20px;
+}
