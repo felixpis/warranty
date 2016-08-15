@@ -3,6 +3,8 @@
  */
 
 import {ProductsModel} from './products.model';
+import {AuthModel} from './auth.model';
 
 export default angular.module('modelsModule', [])
-    .service('productsModel', ProductsModel);
+    .service('productsModel', ProductsModel)
+    .service('authModel', AuthModel);

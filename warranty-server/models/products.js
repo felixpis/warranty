@@ -7,21 +7,23 @@
     var data = require('../data/products');
     var dataImages = require('../data/images');
 
-    products.get = function (next) {
-        data.get(next);
+    products.get = function (userId, next) {
+        data.get(userId, next);
     };
 
-    products.add = function(product, next) {
+    products.add = function(userId, product, next) {
         product.purchaseDate = new Date();
+        product.userId = userId;
         data.add(product, next);
     };
 
-    products.update = function(product, next) {
+    products.update = function(userId, product, next) {
+        product.userId = userId;
         data.update(product, next);
     };
 
-    products.remove = function(productId, next) {
-        data.remove(productId, next);
+    products.remove = function(userId, productId, next) {
+        data.remove(userId, productId, next);
         dataImages.remove(productId, null, function(err, deletedCount){
             console.log("deleted image: ", deletedCount);
         })

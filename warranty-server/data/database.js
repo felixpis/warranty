@@ -33,7 +33,8 @@
                     gfs     : gfs,
                     objectId: objectId,
                     products: db.collection('products'),
-                    images  : db.collection('images')
+                    images  : db.collection('images'),
+                    users: db.collection('users')
                 };
                 next(null, theDB);
                 //db.close();

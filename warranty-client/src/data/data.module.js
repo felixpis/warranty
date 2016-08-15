@@ -3,6 +3,8 @@
  */
 
 import {ProductsDataProvider} from './products.data';
+import {AuthDataProvider} from './auth.data';
 
 export default angular.module('dataModule', [])
-    .service('productsData', ProductsDataProvider);
+    .service('productsData', ProductsDataProvider)
+    .service('authData', AuthDataProvider);

@@ -6,9 +6,9 @@
 
     var database = require('./database');
 
-    products.get = function (next) {
+    products.get = function (userId, next) {
         database.getDB(function(err, db){
-            db.products.find().toArray(function(err, products){
+            db.products.find({userId : userId}).toArray(function(err, products){
                 next(err, products);
             })
         })
@@ -27,15 +27,15 @@
         database.getDB(function(err, db){
             var key = new db.objectId(product._id);
             delete product._id;
-            db.products.updateOne({_id: key}, product, function(err, r){
+            db.products.updateOne({_id: key, userId : product.userId}, product, function(err, r){
                 next(err, r.nModified);
             })
         })
     };
 
-    products.remove = function(productId, next) {
+    products.remove = function(userId, productId, next) {
         database.getDB(function(err, db){
-            db.products.removeOne({_id: new db.objectId(productId)}, function(err, r){
+            db.products.removeOne({_id: new db.objectId(productId), userId: userId}, function(err, r){
                 next(err, r.deletedCount);
             })
         })

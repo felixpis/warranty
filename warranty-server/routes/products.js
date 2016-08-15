@@ -6,29 +6,30 @@ var express            = require('express');
 var productsModel      = require('../models/products');
 var multer             = require('multer');
 var uploadMiddleware   = multer().any();
+var authService        = require('../services/auth');
 
 var router = express.Router();
 
-router.get('/', function (req, res) {
-    productsModel.get(function (err, list) {
+router.get('/', authService.authApiMidleware, function (req, res) {
+    productsModel.get(req.user._id, function (err, list) {
         res.json(list);
     })
 });
 
-router.put('/', function (req, res) {
-    productsModel.add(req.body.product, function (err, product) {
+router.put('/', authService.authApiMidleware, function (req, res) {
+    productsModel.add(req.user._id, req.body.product, function (err, product) {
         res.json(product);
     })
 });
 
-router.post('/', function (req, res) {
-    productsModel.update(req.body.product, function (err, productId) {
+router.post('/', authService.authApiMidleware, function (req, res) {
+    productsModel.update(req.user._id, req.body.product, function (err, productId) {
         res.json(productId);
     })
 });
 
-router.delete('/:productId', function (req, res) {
-    productsModel.remove(req.params.productId, function (err, deletedCount) {
+router.delete('/:productId', authService.authApiMidleware, function (req, res) {
+    productsModel.remove(req.user._id, req.params.productId, function (err, deletedCount) {
         res.json(deletedCount);
     })
 });

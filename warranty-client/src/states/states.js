@@ -8,7 +8,6 @@ import productsModule from './products/products.module';
 
 let dependencies = [
     'ui.router',
-
     productsModule.name
 ];
 

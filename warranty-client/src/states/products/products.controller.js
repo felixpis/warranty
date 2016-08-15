@@ -40,7 +40,7 @@ export class ProductsController{
     deleteProduct(){
         this.productsModel.remove(this.selectedProduct._id)
             .then(() => {
-                this.selectedProduct = this.productsList[0];
+                this.selectedProduct = null;
             });
     }
 

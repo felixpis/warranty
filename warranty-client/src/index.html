@@ -10,14 +10,28 @@
     <title>Warranty</title>
 </head>
 
-<body>
+<body ng-controller="mainController as mainCtrl">
 
-    <ui-view></ui-view>
-
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted"></p>
+<div ng-if="!mainCtrl.authenticated">
+    <div class="row">
+        <div class="col-md-6">
+            <login-view></login-view>
         </div>
-    </footer>
+        <div class="col-md-6">
+            <register-view></register-view>
+        </div>
+    </div>
+
+</div>
+
+<div ng-if="mainCtrl.authenticated">
+    <ui-view></ui-view>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted"></p>
+    </div>
+</footer>
 </body>
 </html>

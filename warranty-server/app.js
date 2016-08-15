@@ -10,7 +10,7 @@ var app = express();
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
     next();
 });
 
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 routes(app);
 
 app.options('/*', function (req, res) {
-    res.send(200);
+    res.sendStatus(200);
 });
 
 // catch 404 and forward to error handler
@@ -50,7 +50,7 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.send({
             message: err.message,
             error  : err
         });
@@ -61,7 +61,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.send({
         message: err.message,
         error  : {}
     });

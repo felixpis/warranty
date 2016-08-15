@@ -19,6 +19,10 @@ import statesModule from './states/states';
 import modelsModule from './models/models.module';
 import dataModule from './data/data.module';
 import servicesModule from './services/services.module';
+import componentsModule from './components/components.module';
+import interceptorsModule from './interceptors/interceptors.module';
+
+import {MainController} from './main.controller';
 
 let dependencies = [
     'ui.bootstrap',
@@ -27,10 +31,13 @@ let dependencies = [
     statesModule.name,
     modelsModule.name,
     dataModule.name,
-    servicesModule.name
+    servicesModule.name,
+    componentsModule.name,
+    interceptorsModule.name
 ];
 
 angular.module('warrantyApp', dependencies)
     .constant('CONFIG', {
         serverUrl : $_SERVER_URL
-    });
+    })
+    .controller('mainController', MainController);

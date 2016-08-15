@@ -95,6 +95,7 @@ export class ProductsModel{
                 if (deleted) {
                     this.get();
                 }
+                return true;
             });
     }
     
