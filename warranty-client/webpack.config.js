@@ -8,7 +8,7 @@ const configFile = require('./config.json');
 const appPath = path.join(__dirname, 'src');
 const bowerPath = path.join(__dirname, 'bower_components');
 const distPath = path.join(__dirname, 'dist');
-const exclude = /node_modules/;
+const exclude = /node_modules|bower_components/;
 
 function getENVReplacements() {
     const replacements = configFile[process.env.NODE_ENV.trim()];

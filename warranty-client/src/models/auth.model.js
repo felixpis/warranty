@@ -33,6 +33,11 @@ export class AuthModel{
                 this.login(email, password);
             })
     }
+    
+    logout(){
+        window.localStorage.removeItem("TOKEN");
+        this.authenticated = false;
+    }
 
     isAuthencticated(){
 

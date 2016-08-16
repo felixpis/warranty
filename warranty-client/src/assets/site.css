@@ -30,3 +30,12 @@ body {
 .container .text-muted {
     margin: 20px 0;
 }
+
+.main-view{
+    margin-top: 40px;
+}
+
+.jumbotron{
+    margin: 0 100px;
+    padding-left: 100px;
+}

@@ -11,4 +11,8 @@ export class MainController{
     get authenticated(){
         return this.authModel.authenticated;
     }
+    
+    logout(){
+        this.authModel.logout();
+    }
 }

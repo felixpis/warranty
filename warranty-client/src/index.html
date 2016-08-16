@@ -11,20 +11,15 @@
 </head>
 
 <body ng-controller="mainController as mainCtrl">
+<header-navbar authenticated="mainCtrl.authenticated" logout="mainCtrl.logout()"></header-navbar>
 
-<div ng-if="!mainCtrl.authenticated">
-    <div class="row">
-        <div class="col-md-6">
-            <login-view></login-view>
-        </div>
-        <div class="col-md-6">
-            <register-view></register-view>
-        </div>
+<div class="main-view" ng-if="!mainCtrl.authenticated">
+    <div class="jumbotron">
+        <p>Please login or register to see your products list</p>
     </div>
-
 </div>
 
-<div ng-if="mainCtrl.authenticated">
+<div class="main-view" ng-if="mainCtrl.authenticated">
     <ui-view></ui-view>
 </div>
 
