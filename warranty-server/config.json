@@ -4,5 +4,13 @@
   },
   "auth": {
     "secret": "hello_world!!!"
+  },
+  "smtp": {
+    "host": "express-relay.jangosmtp.net",
+    "port": 587,
+    "auth": {
+        "user": "joylandraver",
+        "pass": "Hardcore_95"
+    }
   }
 }
