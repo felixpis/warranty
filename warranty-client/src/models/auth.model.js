@@ -4,6 +4,7 @@
 
 
 export class AuthModel{
+    /*@ngInject*/
     constructor(authData){
         this.authData = authData;
         this.authenticated = false;
