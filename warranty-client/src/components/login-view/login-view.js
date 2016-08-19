@@ -6,6 +6,7 @@ import loginViewTemplate from './login-view.html';
 import './login-view.css';
     
 class LoginViewController {
+    /*@ngInject*/
     constructor(authModel) {
         this.authModel = authModel;
     }

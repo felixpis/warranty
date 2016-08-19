@@ -6,6 +6,7 @@ import registerViewTemplate from './register-view.html';
 import './register-view.css';
     
 class RegisterViewController {
+    /*@ngInject*/
     constructor(authModel) {
         this.authModel = authModel;
     }
