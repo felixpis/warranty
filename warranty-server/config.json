@@ -5,12 +5,15 @@
   "auth": {
     "secret": "hello_world!!!"
   },
+  "fromAddress" : "joylandraver@gmail.com",
   "smtp": {
-    "host": "express-relay.jangosmtp.net",
-    "port": 587,
+    "host": "smtp-pulse.com",
+    "port": 465,
+    "secure": true,
+    "connectionTimeout": 60000,
     "auth": {
-        "user": "joylandraver",
-        "pass": "Hardcore_95"
+        "user": "joylandraver@gmail.com",
+        "pass": "DNEEAkMNqQQCm"
     }
   }
 }

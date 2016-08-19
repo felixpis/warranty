@@ -12,6 +12,14 @@
                 next(err, products);
             })
         })
+    }
+
+    products.getOne = function (userId, productId, next) {
+        database.getDB(function(err, db){
+            db.products.findOne({_id: db.objectId(productId), userId : userId}, function (err, product) {
+                next(err, product);
+            });
+        })
     };
 
     products.add = function(product, next) {

@@ -4,17 +4,25 @@
 
     var nodemailer = require('nodemailer');
     var smtpConfig = require('../config').smtp;
+    var fromAddress = require('../config').fromAddress;
     var transporter = nodemailer.createTransport(smtpConfig);
-    // create reusable transporter object using the default SMTP transport
 
-    mailer.sendMail = function (from, to, subject, text, attachments) {
-        transporter.sendMail({
-            from: from, to: to, subject: subject, text: text
-        }, function (error, info) {
+    mailer.sendMail = function (to, subject, text, attachments, next) {
+        var mailOptions = {
+            from: fromAddress,
+            to: to,
+            subject: subject,
+            text: text,
+            attachments: attachments
+        };
+        //console.log(mailOptions);
+        transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
+                next(error, info);
                 return console.log(error);
             }
             console.log('Message sent: ' + info.response);
+            next(error, info);
         })
     }
 

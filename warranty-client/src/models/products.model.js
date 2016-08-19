@@ -106,4 +106,8 @@ export class ProductsModel{
     get imageUrl(){
         return this.productsData.imageUrl;
     }
+    
+    sendMail(productId){
+        return this.productsData.sendMail(productId);
+    }
 }

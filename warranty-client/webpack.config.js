@@ -32,11 +32,14 @@ const config = {
             'angular',
             'angular-ui-router',
             'angular-ui-bootstrap',
+            'angular-animate',
+            'angularjs-toaster',
             'imports?module=>null,define=>null!ng-flow/dist/ng-flow-standalone',
 
             'bootstrap/dist/css/bootstrap.css',
             'bootstrap/dist/css/bootstrap-theme.css',
-            'font-awesome/css/font-awesome.css'
+            'font-awesome/css/font-awesome.css',
+            'angularjs-toaster/toaster.css'
         ]
     },
 

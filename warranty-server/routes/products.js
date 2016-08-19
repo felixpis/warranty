@@ -7,6 +7,7 @@ var productsModel      = require('../models/products');
 var multer             = require('multer');
 var uploadMiddleware   = multer().any();
 var authService        = require('../services/auth');
+var mailService        = require('../services/mailer');
 
 var router = express.Router();
 
@@ -25,6 +26,27 @@ router.put('/', authService.authApiMidleware, function (req, res) {
 router.post('/', authService.authApiMidleware, function (req, res) {
     productsModel.update(req.user._id, req.body.product, function (err, productId) {
         res.json(productId);
+    })
+});
+
+router.post('/sendMail', authService.authApiMidleware, function (req, res) {
+    productsModel.getOne(req.user._id, req.body.productId, function (err, product) {
+        var attachments = [];
+        if (product.imageFiles){
+            attachments = product.imageFiles.map(function (image) {
+                return {
+                    filename: image.name,
+                    content: image.fileBytes.buffer
+                }
+            })
+        }
+        mailService.sendMail(req.user.email, product.name, "", attachments, function (error, info) {
+            if (error){
+                return res.status(500).json(error);
+            }
+
+            res.json(info);
+        });
     })
 });
 

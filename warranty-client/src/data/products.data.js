@@ -44,4 +44,11 @@ export class ProductsDataProvider{
     get imageUrl(){
         return `${this.url}images/load/`;
     }
+    
+    sendMail(productId){
+        return this.$http.post(this.url + 'sendMail', {productId})
+            .then((response) => {
+                return response.data;
+            })
+    }
 }

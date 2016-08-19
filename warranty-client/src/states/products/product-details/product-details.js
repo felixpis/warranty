@@ -7,10 +7,12 @@ import detailsTemplate from './product-details.html';
 
 class ProductDetailsController {
     /*@ngInject*/
-    constructor(modalsService) {
+    constructor(modalsService, toaster) {
         this.modalsService = modalsService;
         this.inProgress = false;
+        this.sendInProgress = false;
         this.productToEdit = null;
+        this.toaster = toaster;
         if (this.options){
             this.options.cancelEdit = () => {
                 this.cancelEdit();
@@ -72,6 +74,19 @@ class ProductDetailsController {
     uploadEnded() {
         this.inProgress = false;
     }
+    
+    sendMail(){
+        this.sendInProgress = true;
+        this.send()
+            .then(() => {
+                this.sendInProgress = false;
+                this.toaster.pop('success', "Send mail", "Mail sent successfuly");
+            })
+            .catch(() => {
+                this.sendInProgress = false;
+                this.toaster.pop('error', "Send mail", "Send mail failed. Please try again later");
+            });
+    }
 }
 
 export var ProductDetailsComponent = {
@@ -80,6 +95,7 @@ export var ProductDetailsComponent = {
         selectedProduct: '=',
         remove: '&',
         save: '&',
+        send: '&',
         uploadUrl: '=',
         imageUrl: '='
     },

@@ -11,6 +11,23 @@
         data.get(userId, next);
     };
 
+    products.getOne = function (userId, productId, next) {
+        data.getOne(userId, productId, function (err, product) {
+            if (product.images) {
+                var imageIds = product.images.map(function (image) {
+                    return image.imageId;
+                });
+                dataImages.getMany(imageIds, function (err, images) {
+                    product.imageFiles = images;
+                    next(null, product);
+                })
+            }
+            else{
+                next(null, product);
+            }
+        });
+    };
+
     products.add = function(userId, product, next) {
         product.purchaseDate = new Date();
         product.userId = userId;

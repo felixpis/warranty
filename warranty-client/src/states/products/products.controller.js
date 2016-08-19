@@ -13,7 +13,6 @@ export class ProductsController{
         this.productsList = this.productsModel.products;
         this.uploadUrl =productsModel.uploadUrl;
         this.imageUrl = productsModel.imageUrl;
-        
         this.loadProducts();
     }
 
@@ -49,5 +48,9 @@ export class ProductsController{
         if (this.detailsOptions.cancelEdit) {
             this.detailsOptions.cancelEdit();
         }
+    }
+
+    sendMail(){
+        return this.productsModel.sendMail(this.selectedProduct._id);
     }
 }

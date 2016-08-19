@@ -23,6 +23,18 @@
         })
     };
 
+    images.getMany = function(imageIds, next){
+        database.getDB(function(err, db){
+            //productId, name, fileBytes, contentType
+            var dbImageIds = imageIds.map(function (imageId) {
+                return db.objectId(imageId);
+            });
+            db.images.find({_id: {$in : dbImageIds}}).toArray(function(err, images){
+                next(err, images);
+            })
+        })
+    };
+
     images.remove = function(productId, fileName, next) {
         database.getDB(function(err, db){
             var query = {productId: productId};

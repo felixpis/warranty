@@ -27,6 +27,8 @@ import {MainController} from './main.controller';
 let dependencies = [
     'ui.bootstrap',
     'flow',
+    'ngAnimate',
+    'toaster',
 
     statesModule.name,
     modelsModule.name,
