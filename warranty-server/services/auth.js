@@ -20,6 +20,7 @@
                 return next({message: "Password is wrong"}, null);
             }
 
+            delete user.password;
             var token = jwt.sign(user, config.secret, {expiresIn: '30 days'});
             next(null, token);
         });
