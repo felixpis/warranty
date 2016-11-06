@@ -1,6 +1,6 @@
 {
   "database": {
-    "url": "mongodb://127.0.0.1:27017/warranty"
+    "url": "mongodb://felixp:hardcore95@127.0.0.1:27017/warranty"
   },
   "auth": {
     "secret": "hello_world!!!"
